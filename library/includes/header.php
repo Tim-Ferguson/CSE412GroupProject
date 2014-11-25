@@ -1,5 +1,5 @@
 <?php include($_SERVER['DOCUMENT_ROOT'] . '/library/config/top_includes.php'); ?>
-
+<?php print_r($_SESSION); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,8 +38,14 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <?php if(!$_SESSION['logged']) : ?>
                 <li><a href="/login/" >Login</a></li>
                 <li><a href="/register/" >Register</a></li>
+                <?php else : ?>
+                    <li><p class="navbar-text">Welcome, <?=$_SESSION['name']; ?></p></li>
+                    <li><a href="/account/" >My Account</a></li>
+                    <li><a href="/logout/" >Logout</a></li>
+                <?php endif; ?>
             </ul>
         </nav>
     </div>

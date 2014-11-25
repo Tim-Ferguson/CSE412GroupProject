@@ -26,7 +26,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if($user['password'] != md5($vars['password'])){
                 $errors['Password'] = ' does not match';
+            }else{
+                login_user($user['user_id']);
             }
+        }else{
+            $errors['User'] = ' does not exist';
         }
     }
 
@@ -43,11 +47,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
             <h1>Login</h1>
             <?=$display_message; ?>
-        </div>
-        <div class="col-md-offset-3 col-md-6">
+
             <form role="form" method="post" action="">
                 <div class="form-group">
                     <label for="email">Email address</label>
@@ -60,6 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
         </div>
+
     </div>
 </div>
 

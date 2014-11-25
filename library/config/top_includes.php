@@ -2,6 +2,10 @@
 error_reporting(-1);
 ini_set('display_errors', 'On');
 
+if(!isset($_SESSION)){
+    session_start();
+}
+
 // LIBRARY PATH
 define('LIBRARY_PATH',$_SERVER['DOCUMENT_ROOT'] . '/library/');
 

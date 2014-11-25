@@ -38,3 +38,38 @@ function has_errors($errors){
     }
     return $has_errors;
 }
+
+function login_user($user_id){
+
+    $user_type = 'customer';
+
+    $pdo = db_connect();
+    $sql = 'SELECT * FROM librarians WHERE user_id = :user_id';
+    $request = $pdo->prepare($sql);
+    $request->execute(array('user_id' => $user_id));
+
+    if($request->rowCount() > 0){
+        $user_type = 'librarian';
+    }
+
+    $sql = 'SELECT * FROM head_librarians WHERE user_id = :user_id';
+    $request = $pdo->prepare($sql);
+    $request->execute(array('user_id' => $user_id));
+
+    if($request->rowCount() > 0){
+        $user_type = 'master';
+    }
+
+    $sql = 'SELECT * FROM users WHERE user_id = :user_id';
+    $request = $pdo->prepare($sql);
+    $request->execute(array('user_id' => $user_id));
+
+    $result = $request->fetch();
+
+    if($result){
+        $_SESSION['logged'] = true;
+        $_SESSION['name'] = $result['name'];
+        $_SESSION['user_type'] = $user_type;
+    }
+
+}

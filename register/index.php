@@ -53,11 +53,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-2">
             <h1>Register</h1>
             <?=$display_message; ?>
-        </div>
-        <div class="col-md-offset-3 col-md-6">
             <form role="form" method="post" action="/register/">
                 <div class="form-group">
                     <label for="email">Email address</label>
