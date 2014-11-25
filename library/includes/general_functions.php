@@ -70,6 +70,7 @@ function login_user($user_id){
         $_SESSION['logged'] = true;
         $_SESSION['name'] = $result['name'];
         $_SESSION['user_type'] = $user_type;
+		$_SESSION['user_id'] = $user_id;
     }
 
 }

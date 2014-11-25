@@ -43,7 +43,7 @@
                 <li><a href="/register/" >Register</a></li>
                 <?php else : ?>
                     <li><p class="navbar-text">Welcome, <?=$_SESSION['name']; ?></p></li>
-                    <li><a href="/account/" >My Account</a></li>
+                    <li><a href="/account/?user_id=<?=$_SESSION['user_id']; ?>" >My Account</a></li>
                     <li><a href="/logout/" >Logout</a></li>
                 <?php endif; ?>
             </ul>
