@@ -45,20 +45,23 @@ function login_user($user_id){
 
     $pdo = db_connect();
     $sql = 'SELECT * FROM librarians WHERE user_id = :user_id';
-    $request = $pdo->prepare($sql);
-    $request->execute(array('user_id' => $user_id));
+    $librarian = $pdo->prepare($sql);
+    $librarian->execute(array('user_id' => $user_id));
 
-    if($request->rowCount() > 0){
+    if($librarian->rowCount() > 0){
         $user_type = 'librarian';
+        $librarian = $librarian->fetch();
+
+        $sql = 'SELECT * FROM head_librarians WHERE librarian_id = :librarian_id';
+        $head_librarian = $pdo->prepare($sql);
+        $head_librarian->execute(array('librarian_id' => $librarian['librarian_id']));
+
+        if($head_librarian->rowCount() > 0){
+            $user_type = 'master';
+        }
     }
 
-    $sql = 'SELECT * FROM head_librarians WHERE user_id = :user_id';
-    $request = $pdo->prepare($sql);
-    $request->execute(array('user_id' => $user_id));
 
-    if($request->rowCount() > 0){
-        $user_type = 'master';
-    }
 
     $sql = 'SELECT * FROM users WHERE user_id = :user_id';
     $request = $pdo->prepare($sql);
