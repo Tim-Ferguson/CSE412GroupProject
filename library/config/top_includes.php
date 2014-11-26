@@ -1,9 +1,10 @@
 <?php
-error_reporting(-1);
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 ini_set('display_errors', 'On');
 
 if(!isset($_SESSION)){
     session_start();
+
 }
 
 // LIBRARY PATH

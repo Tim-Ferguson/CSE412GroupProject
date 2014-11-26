@@ -1,8 +1,12 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/library/includes/header.php');
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/library/config/top_includes.php');
 
 unset($_SESSION['name']);
 unset($_SESSION['logged']);
 unset($_SESSION['user_type']);
+unset($_SESSION['user_id']);
+
+include($_SERVER['DOCUMENT_ROOT'] . '/library/includes/header.php');
 ?>
 <div class="container">
     <div class="row">

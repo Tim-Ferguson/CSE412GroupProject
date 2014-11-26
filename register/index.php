@@ -45,6 +45,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $request = $pdo->prepare($sql);
         $request->execute($execution_values);
 
+        $sql = 'INSERT INTO customers (user_id) values (:user_id)';
+        $request = $pdo->prepare($sql);
+        $request->execute(array('user_id' => $pdo->lastInsertId('user')));
 
         $display_message = '<p class="alert alert-success">Your account has been successfully created!</p>';
     }
