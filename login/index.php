@@ -1,4 +1,5 @@
-<?php include($_SERVER['DOCUMENT_ROOT'] . '/library/includes/header.php');
+<?php
+include_once($_SERVER['DOCUMENT_ROOT'] . '/library/config/top_includes.php');
 
 $display_message = '';
 
@@ -26,8 +27,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             if($user['password'] != md5($vars['password'])){
                 $errors['Password'] = ' does not match';
-            }else{
-                login_user($user['user_id']);
             }
         }else{
             $errors['User'] = ' does not exist';
@@ -38,11 +37,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $display_message = '<p class="alert alert-danger">' . build_errors($errors) . '</p>';
     }else{
         // Validated, login user & set display message
-
-//        Todo: Login user here
+        login_user($user['user_id']);
         $display_message = '<p class="alert alert-success">You have been successfully logged in!</p>';
     }
 }
+include($_SERVER['DOCUMENT_ROOT'] . '/library/includes/header.php');
 ?>
 
 <div class="container">
