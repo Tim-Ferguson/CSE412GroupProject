@@ -61,9 +61,9 @@ if($user_id)
 
                             foreach($reservations as $key=>$reservation):
 
-                                $sql = 'SELECT * FROM book_attributes WHERE isbn = (SELECT isbn FROM book WHERE book_id = :book_id)';
+                                $sql = 'SELECT * FROM book_attributes WHERE isbn = :isbn';
                                 $books = $pdo->prepare($sql);
-                                $books->execute(array('book_id' => $reservation['book_id']));
+                                $books->execute(array('isbn' => $reservation['isbn']));
 
                                 $book = $books->fetch();
                                 ?>
@@ -100,9 +100,9 @@ if($user_id)
 
                             foreach($reservations as $key=>$reservation):
 
-                                $sql = 'SELECT * FROM book_attributes WHERE isbn = (SELECT isbn FROM book WHERE book_id = :book_id)';
+                                $sql = 'SELECT * FROM book_attributes WHERE isbn = :isbn';
                                 $books = $pdo->prepare($sql);
-                                $books->execute(array('book_id' => $reservation['book_id']));
+                                $books->execute(array('isbn' => $reservation['isbn']));
 
                                 $book = $books->fetch();
                                 ?>
@@ -118,7 +118,7 @@ if($user_id)
                     <?php else : ?>
                         <p>No reservations have been made.</p>
                     <?php endif; ?>
-                    <p><a class="btn btn-success" href="/account/admin/add_reservation.php">Add reservation</a></p>
+                    <p><a class="btn btn-success" href="/account/admin/edit_reservation.php">Add reservation</a></p>
                 <?
 				}
 				if($_SESSION['user_type'] == "master")
@@ -169,15 +169,17 @@ if($user_id)
                             <th>Librarian ID</th>
                             <th>Modification type</th>
                             <th>Notes</th>
+							<th>Add/Edit Note</th>
                         </tr>
                         <?php
 
                         foreach($modifications as $key=>$modification):
                             ?>
                             <tr>
-                                <td><?=$modification['head_librarian_id']?></td>
+                                <td><?=$modification['librarian_user_id']?></td>
                                 <td><?=$modification['modification_type']?></td>
                                 <td><?=$modification['notes']?></td>
+								<td><a class="btn btn-warning" href="admin/editnote.php?modification_id=<?=$modification['modification_id']?>">Edit Note</td>
                             </tr>
                         <?php endforeach; ?>
                     </table>

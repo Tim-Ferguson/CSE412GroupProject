@@ -27,20 +27,20 @@ $result = $request->fetchAll();
 					?>
 					<? 
 					$pdo = db_connect();
-					$sql = 'SELECT (SELECT count(isbn) FROM book b WHERE isbn = :isbn) - (SELECT count(isbn) FROM reservations WHERE isbn = :isbn AND CURDATE() > reservations.start_date AND CURDATE() < reservations.end_date OR CURDATE() = reservations.start_date)';
+					$sql = 'SELECT (SELECT count(isbn) FROM book b WHERE isbn = :isbn) - (SELECT count(isbn) FROM reservations WHERE isbn = :isbn AND (CURDATE() > reservations.start_date AND CURDATE() < reservations.end_date) OR (CURDATE() = reservations.start_date AND isbn = :isbn))';
 					$request = $pdo->prepare($sql);
 					$isbn = $value['isbn'];
 					$request->execute(array(':isbn' => $isbn));
 					$result1 = $request->fetchColumn();
 					?>
-					<?php if($result1 > 0) : ?>
+					<?php if(intval($result1) > 0) : ?>
 					<tr>
 						<td><?=$value['title']?></td>
 						<td><?=$value['author']?></td>
 						<td><?=$value['publisher']?></td>
 						<td><?=$value['isbn']?></td>
 						<td><?=$result1?></td>
-							<td><a class="btn btn-success" href="/books/reserve/?isbn=<?=$value['isbn'];?>">Reserve</a></td> 
+							<td><a class="btn btn-success" href="/books/reserve/?isbn=<?=$value['isbn'];?>">Reserve</a><a class="btn btn-success" href="/books/view/?isbn=<?=$value['isbn'];?>">View Information</a></td> 
 						</tr>
 					<?php endif;?>	
 					<?php endforeach; ?>
